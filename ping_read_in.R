@@ -73,6 +73,7 @@ meta <- meta_raw_2 %>%
                                        cbind(Longitude[  -1], Latitude[  -1]))),
          dst_alng = cumsum(dist_btw)) 
 
+plot(meta$Longitude[2:1998], meta$Latitude[2:1998])
 
 for_pings <- meta %>% 
   select(Distance_gps, Depth, Longitude, Latitude)
