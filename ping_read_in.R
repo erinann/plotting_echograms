@@ -110,11 +110,14 @@ pings <- data %>%
 
 pings_plot <- pings %>%
   gather(key, value, -dst_alng) %>%
-  mutate(key = as.numeric(gsub("X", "", key))) 
+  mutate(key = as.numeric(gsub("X", "", key)),
+         dpth_bin = key - 8) # current "key" is column name, not depth bin. 
+#subtracting 8 (to start at depth of 6 m (depth of transducer), fixes depth bins)
+
 
 
 gg <- ggplot()
-gg <- gg + geom_tile(data = pings_plot, aes(x = dst_alng, y = key, fill = value), width = 100) +
+gg <- gg + geom_tile(data = pings_plot, aes(x = dst_alng, y = dpth_bin, fill = value), width = 100) +
   scale_fill_viridis_c(na.value = "white") +
   scale_y_reverse() +
   theme_classic() +
